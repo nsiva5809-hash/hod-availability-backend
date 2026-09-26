@@ -123,15 +123,15 @@ app.post("/api/auth/admin-login", async (req, res) => {
         role: "admin",
       },
     });
-  } catch (error) {
-  console.error("Faculty timetable save error:", error);
+      } catch (error) {
+    console.error("Admin login error:", error);
 
-  res.status(500).json({
-    error: error.message || "Unable to save timetable",
-    details: error,
-  });
-}
-
+    res.status(500).json({
+      error: "Server error",
+    });
+  }
+});
+ 
 // ==================================================
 // HOD LOGIN
 // ==================================================
