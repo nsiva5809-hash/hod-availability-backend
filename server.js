@@ -13,7 +13,17 @@ const PORT = process.env.PORT || 5000;
 // MIDDLEWARE
 // ==================================================
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://hod-availability-frontend.vercel.app",
+      "http://localhost:5173",
+    ],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 
 // ==================================================
@@ -114,13 +124,13 @@ app.post("/api/auth/admin-login", async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Admin login error:", error);
+  console.error("Faculty timetable save error:", error);
 
-    return res.status(500).json({
-      error: "Server error",
-    });
-  }
-});
+  res.status(500).json({
+    error: error.message || "Unable to save timetable",
+    details: error,
+  });
+}
 
 // ==================================================
 // HOD LOGIN
